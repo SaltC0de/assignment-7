@@ -1,3 +1,4 @@
+import math
 """
 Exercise-1: is_prime
 Write a function "is_prime(n: int) -> bool" that takes an integer 'n' 
@@ -9,8 +10,15 @@ is_prime(10) -> False
 """
 
 def is_prime(n: int) -> bool:
-    # write your code here
-    pass
+    if n <= 1:
+        return False
+    for i in range(2, int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+print(is_prime(7))
+print(is_prime(10))
 
 """
 Exercise-2: nth_fibonacci
@@ -23,8 +31,18 @@ nth_fibonacci(9) -> 21
 """
 
 def nth_fibonacci(n: int) -> int:
-    # write your code here
-    pass
+    if n == 1:
+        return 0
+    elif n == 2:
+        return 1
+
+    a, b = 0, 1
+    for i in range(2, n):
+        a, b = b, a + b
+    return b
+
+print(nth_fibonacci(6))
+print(nth_fibonacci(9))
 
 """
 Exercise-3: factorial
@@ -36,8 +54,16 @@ factorial(6) -> 720
 """
 
 def factorial(n: int) -> int:
-    # write your code here
-    pass
+    if n == 0 or n == 1:
+        return 1
+
+    result = 1
+    for i in range(2, n + 1):
+        result *= i
+    return result
+
+print(factorial(5))
+print(factorial(6))
 
 """
 Exercise-4: count_vowels
@@ -50,8 +76,12 @@ count_vowels("world") -> 1
 """
 
 def count_vowels(s: str) -> int:
-    # write your code here
-    pass
+    vowels = "aeiouAEIOU"
+    return sum(1 for char in s if char in vowels)
+
+
+print(count_vowels("hello"))
+print(count_vowels("world"))
 
 """
 Exercise-5: sum_of_digits
@@ -64,8 +94,10 @@ sum_of_digits(98765) -> 35
 """
 
 def sum_of_digits(n: int) -> int:
-    # write your code here
-    pass
+    return sum(int(digit) for digit in str(abs(n)))
+
+print(sum_of_digits(12345))
+print(sum_of_digits(98765))
 
 
 """
@@ -78,8 +110,10 @@ reverse_string("world") -> "dlrow"
 """
 
 def reverse_string(s: str) -> str:
-    # write your code here
-    pass
+    return s[::-1]
+
+print(reverse_string("hello"))
+print(reverse_string("world"))
 
 
 """
@@ -93,8 +127,10 @@ sum_of_squares(5) -> 55
 """
 
 def sum_of_squares(n: int) -> int:
-    # write your code here
-    pass
+    return sum(i ** 2 for i in range(1, n + 1))
+
+print(sum_of_squares(4))
+print(sum_of_squares(5))
 
 
 """
@@ -108,8 +144,14 @@ collatz_sequence_length(27) -> 112
 """
 
 def collatz_sequence_length(n: int) -> int:
-    # write your code here
-    pass
+    length = 1
+    while n != 1:
+        n = n // 2 if n % 2 == 0 else 3 * n + 1
+        length += 1
+    return length
+
+print(collatz_sequence_length(6))
+print(collatz_sequence_length(27))
 
 
 """
@@ -123,8 +165,10 @@ is_leap_year(1900) -> False
 """
 
 def is_leap_year(year: int) -> bool:
-    # write your code here
-    pass
+    return year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
+
+print(is_leap_year(2000))
+print(is_leap_year(1900))
 
 
 """
@@ -138,8 +182,10 @@ count_words("This is a test") -> 4
 """
 
 def count_words(s: str) -> int:
-    # write your code here
-    pass
+    return len(s.split())
+
+print(count_words("Hello world"))
+print(count_words("This is a test"))
 
 
 """
@@ -154,8 +200,12 @@ is_palindrome("hello") -> False
 """
 
 def is_palindrome(s: str) -> bool:
-    # write your code here
-    pass
+    s = s.replace(" ", "").lower()
+    return s == s[::-1]
+
+print(is_palindrome("racecar"))
+print(is_palindrome("hello"))
+
 
 """
 Exercise-12: sum_of_multiples
@@ -165,13 +215,14 @@ numbers from 1 to 'n' (inclusive) that are multiples of 'x' or 'y'.
 
 Example:
 sum_of_multiples(10, 3, 5) -> 33
-sum_of_multiples(20, 7, 11) -> 168
+sum_of_multiples(20, 7, 11) -> 32
 """
 
 def sum_of_multiples(n: int, x: int, y: int) -> int:
-    # write your code here
-    pass
+    return sum(i for i in range(1, n + 1) if i % x == 0 or i % y == 0)
 
+print(sum_of_multiples(10, 3, 5))
+print(sum_of_multiples(20, 7, 11))
 
 """
 Exercise-13: gcd
@@ -184,8 +235,12 @@ gcd(27, 15) -> 3
 """
 
 def gcd(a: int, b: int) -> int:
-    # write your code here
-    pass
+    while b:
+        a, b = b, a % b
+    return a
+
+print(gcd(56, 98))
+print(gcd(27, 15))
 
 
 """
@@ -199,8 +254,12 @@ lcm(6, 8) -> 24
 """
 
 def lcm(a: int, b: int) -> int:
-    # write your code here
-    pass
+    if a == 0 or b == 0:
+        return 0
+    return abs(a * b) // gcd(a, b)
+
+print(lcm(5, 7))
+print(lcm(6, 8))
 
 
 """
@@ -216,9 +275,10 @@ count_characters("apple", "p") -> 2
 """
 
 def count_characters(s: str, c: str) -> int:
-    # write your code here
-    pass
+    return s.count(c)
 
+print(count_characters("hello world", "l"))
+print(count_characters("apple", "p"))
 
 """
 Exercise-16: digit_count
@@ -231,8 +291,10 @@ digit_count(4567) -> 4
 """
 
 def digit_count(n: int) -> int:
-    # write your code here
-    pass
+    return len(str(abs(n)))
+
+print(digit_count(123))
+print(digit_count(4567))
 
 
 """
@@ -246,8 +308,10 @@ is_power_of_two(10) -> False
 """
 
 def is_power_of_two(n: int) -> bool:
-    # write your code here
-    pass
+    return n > 0 and (n & (n - 1)) == 0
+
+print(is_power_of_two(8))
+print(is_power_of_two(10))
 
 
 """
@@ -261,9 +325,10 @@ sum_of_cubes(4) -> 100
 """
 
 def sum_of_cubes(n: int) -> int:
-    # write your code here
-    pass
+    return sum(i ** 3 for i in range(1, n + 1))
 
+print(sum_of_cubes(3))
+print(sum_of_cubes(4))
 
 """
 Exercise-19: is_perfect_square
@@ -276,8 +341,10 @@ is_perfect_square(10) -> False
 """
 
 def is_perfect_square(n: int) -> bool:
-    # write your code here
-    pass
+    return int(n ** 0.5) ** 2 == n
+
+print(is_perfect_square(9))
+print(is_perfect_square(10))
 
 
 """
@@ -291,5 +358,8 @@ is_armstrong_number(370) -> True
 """
 
 def is_armstrong_number(n: int) -> bool:
-    # write your code here
-    pass
+    digits = list(map(int, str(n)))
+    return n == sum(d ** len(digits) for d in digits)
+
+print(is_armstrong_number(153))
+print(is_armstrong_number(370))

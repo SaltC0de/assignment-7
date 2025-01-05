@@ -10,8 +10,18 @@ count_substrings("aaaaaa", "aa") -> 3
 """
 
 def count_substrings(s: str, subs: str) -> int:
-    # write your code here
-    pass
+    count = 0
+    index = 0
+    while index < len(s):
+        index = s.find(subs, index)
+        if index == -1:
+            break
+        count += 1
+        index += len(subs)
+    return count
+
+print(count_substrings("ababab", "ab"))
+print(count_substrings("aaaaaa", "aa"))
 
 """
 💎 Exercise-2: find_smallest_divisor
@@ -24,8 +34,15 @@ find_smallest_divisor(49) -> 7
 """
 
 def find_smallest_divisor(n: int) -> int:
-    # write your code here
-    pass
+    if n % 2 == 0:
+        return 2
+    for i in range(3, int(n ** 0.5) + 1, 2):
+        if n % i == 0:
+            return i
+    return n
+
+print(find_smallest_divisor(21))
+print(find_smallest_divisor(49))
 
 
 """
@@ -41,8 +58,14 @@ check_divisible_by_any(23, "2 3 5") -> False
 """
 
 def check_divisible_by_any(n: int, divisors: str) -> bool:
-    # write your code here
-    pass
+    divisors_list = map(int, divisors.split())
+    for divisor in divisors_list:
+        if n % divisor == 0:
+            return True
+    return False
+
+print(check_divisible_by_any(24, "2 3 5"))
+print(check_divisible_by_any(23, "2 3 5"))
 
 
 """
@@ -57,9 +80,10 @@ find_nth_root(81, 4) -> 3.0
 """
 
 def find_nth_root(x: float, n: int) -> float:
-    # write your code here
-    pass
+    return round(x ** (1 / n), 3)
 
+print(find_nth_root(8, 3))
+print(find_nth_root(81, 4))
 
 
 """
@@ -77,5 +101,14 @@ collatz_sequence_length(27) -> 111
 """
 
 def collatz_sequence_length(n: int) -> int:
-    # write your code here
-    pass
+    steps = 0
+    while n != 1:
+        if n % 2 == 0:
+            n //= 2
+        else:
+            n = 3 * n + 1
+        steps += 1
+    return steps
+
+print(collatz_sequence_length(6))
+print(collatz_sequence_length(27))
